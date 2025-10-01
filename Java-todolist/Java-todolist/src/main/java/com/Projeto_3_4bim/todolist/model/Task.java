@@ -25,10 +25,10 @@ public class Task {
     private String taskname;
 
     @Column()
-    private String task_description;
+    private String taskdescription;
 
     @Column()
-    private String expiration_date; //Usando Java.time.LocalDateTime iremos comparar com a data de expiração no estilo ano-mês-diaThora:minuto:segundo
+    private String expirationdate; //Usando Java.time.LocalDateTime iremos comparar com a data de expiração no estilo ano-mês-diaThora:minuto:segundo
 
     @Column()
     private String status;

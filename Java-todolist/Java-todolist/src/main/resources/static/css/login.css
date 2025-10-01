@@ -1,4 +1,4 @@
-/* Campos de entrada em dark mode */
+/* Remoção de alguns itens do bootstrap nessas classes para que o dark mode funcione melhor */
 input:focus,
 input:focus-visible,
 textarea:focus,
@@ -6,8 +6,10 @@ textarea:focus-visible,
 select:focus,
 select:focus-visible {
     outline: none !important;
-    box-shadow: none !important; /* se quiser remover tudo temporariamente */
+    box-shadow: none !important;
 }
+
+/* Campos de entrada em dark mode */
 
 .dark-input {
     background-color: #2b2b2b;

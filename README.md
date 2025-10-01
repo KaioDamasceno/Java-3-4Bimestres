@@ -24,14 +24,6 @@ O trabalho foi feito como parte da disciplina **Laboratório de Programação 2 
 
 ---
 
-## Funcionalidades Entregues (3º Bimestre)
-
-* **Autenticação de Usuários** – cadastro e login seguros
-* **Proteção de Rotas** – apenas usuários autenticados podem acessar as páginas
-* **Criptografia de Senhas** – implementação com BCrypt para armazenamento seguro
-
----
-
 ## Como Executar o Projeto
 
 ### Pré-requisitos

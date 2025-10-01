@@ -12,13 +12,18 @@
 
 <body class="bg-dark text-light">
 <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow p-4 bg-dark text-light border-light" style="width: 100%; max-width: 400px;">
+    <div class="card shadow p-4 bg-dark text-light border-light" style="width: 100%; max-width: 450px;">
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Criar Conta</h2>
 
-            <!-- Mensagem de erro (ex: usuário já existe) -->
+            <!-- Mensagem de erro de usuário duplicado -->
             <div th:if="${error}" class="alert alert-danger" role="alert">
-                <p th:text="${error}"></p>
+                <p class="mb-0" th:text="${error}"></p>
+            </div>
+
+            <!-- Mensagem de erro de senha fraca -->
+            <div th:if="${passwordError}" class="alert alert-danger" role="alert">
+                <p class="mb-0" th:text="${passwordError}"></p>
             </div>
 
             <!-- Formulário de Registro -->
@@ -30,6 +35,10 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Senha:</label>
                     <input type="password" id="password" class="form-control dark-input" th:field="*{password}" required>
+                    <!-- Adicionando informações sobre os requisitos da senha -->
+                    <div id="passwordHelp" class="form-text text-light">
+                        A senha deve ter entre 8 e 20 caracteres, contendo pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial (!@#&...).
+                    </div>
                 </div>
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Registrar</button>

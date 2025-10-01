@@ -1,16 +1,16 @@
 package com.Projeto_3_4bim.todolist.service;
 
+import com.Projeto_3_4bim.todolist.model.User;
+import com.Projeto_3_4bim.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.Projeto_3_4bim.todolist.model.User;
-import com.Projeto_3_4bim.todolist.repository.UserRepository;
-
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Esta classe de serviço é responsável por carregar os detalhes de um usuário
@@ -61,5 +61,14 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
-}
 
+    /**
+     * Procura por um usuário pelo seu nome de usuário.
+     * Este método delega a chamada para o repositório.
+     * @param username O nome de usuário a ser procurado.
+     * @return um Optional contendo o usuário se encontrado, ou um Optional vazio caso contrário.
+     */
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+}

@@ -1,0 +1,32 @@
+/* Campos de entrada em dark mode */
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+    outline: none !important;
+    box-shadow: none !important; /* se quiser remover tudo temporariamente */
+}
+
+.dark-input {
+    background-color: #2b2b2b;
+    color: #f1f1f1;
+    border: 1px solid #444;
+}
+
+.dark-input:focus {
+    background-color: #2b2b2b;
+    color: #fff;
+    
+}
+
+/* Links claros */
+a.link-light {
+    color: #cce0ff;
+    text-decoration: underline;
+}
+
+a.link-light:hover {
+    color: #ffffff;
+}

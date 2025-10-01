@@ -7,12 +7,12 @@
     <!-- Incluindo Bootstrap via CDN para estilização rápida -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Link para nosso CSS customizado -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
-<body>
 
+<body class="bg-dark text-light">
 <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+    <div class="card shadow p-4 bg-dark text-light border-light" style="width: 100%; max-width: 400px;">
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Criar Conta</h2>
 
@@ -22,18 +22,14 @@
             </div>
 
             <!-- Formulário de Registro -->
-            <!-- A action @{/register} envia os dados para o nosso AuthController -->
-            <!-- th:object="${user}" conecta o formulário ao objeto User do modelo -->
             <form th:action="@{/register}" th:object="${user}" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label">Nome de Usuário:</label>
-                    <!-- th:field="*{username}" vincula este input ao campo 'username' do objeto User -->
-                    <input type="text" id="username" class="form-control" th:field="*{username}" required autofocus>
+                    <input type="text" id="username" class="form-control dark-input" th:field="*{username}" required autofocus>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Senha:</label>
-                    <!-- th:field="*{password}" vincula este input ao campo 'password' do objeto User -->
-                    <input type="password" id="password" class="form-control" th:field="*{password}" required>
+                    <input type="password" id="password" class="form-control dark-input" th:field="*{password}" required>
                 </div>
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Registrar</button>
@@ -41,11 +37,10 @@
             </form>
 
             <div class="text-center mt-3">
-                <p>Já tem uma conta? <a th:href="@{/login}">Faça o login</a></p>
+                <p>Já tem uma conta? <a th:href="@{/login}" class="link-light"><b>Faça o login</b></a></p>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

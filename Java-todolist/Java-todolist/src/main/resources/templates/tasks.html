@@ -17,10 +17,10 @@
     <div class="container">
         <a class="navbar-brand" th:href="@{/tasks}">Gerenciador de Tarefas</a>
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
+            <ul class="navbar-nav ms-auto d-flex align-items-center">
+                <li class="nav-item me-3">
                     <!-- Exibe o nome do usuário logado -->
-                    <span class="navbar-text me-3">
+                    <span class="navbar-text">
                         Olá, <strong sec:authentication="name">Usuário</strong>
                     </span>
                 </li>

@@ -17,7 +17,7 @@ O trabalho foi feito como parte da disciplina **Laboratório de Programação 2 
 | Nome Completo                  | Prontuário |
 | ------------------------------ | ---------- |
 | Bruno Timóteo Silva            | SP3116042  |
-| Fernando Pereira Felipe Duarte | SP311872X  |
+| Fernando Pereira Filipe Duarte | SP311872X  |
 | João Pedro de Almeida Martins  | SP3115933  |
 | Kaio Damasceno de Oliveira     | SP3124517  |
 | Matheus Barbosa Silva          | SP311659X  |

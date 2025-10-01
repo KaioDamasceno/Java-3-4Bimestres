@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.Projeto_3_4bim.todolist.model.Task;
 
 public interface TaskRepository extends JpaRepository<Task, Long>{
-    Optional<Task> findByTaskname(String task_name);
+    Optional<Task> findByTaskname(String taskname);
 
     Optional<Task> findByTag(String tag);
 }

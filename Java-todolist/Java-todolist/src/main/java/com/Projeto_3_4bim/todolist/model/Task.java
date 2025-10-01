@@ -22,7 +22,7 @@ public class Task {
     private Long id;
 
     @Column(unique = true, nullable = false) // Garante que o nome da tarefa seja único e não nulo.
-    private String task_name;
+    private String taskname;
 
     @Column()
     private String task_description;

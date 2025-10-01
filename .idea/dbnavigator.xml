@@ -37,10 +37,7 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="56ea8e8e-d800-453d-b6e2-58c2aac7e7ee" object-ref="consoles/todolist-db" />
-      <object connection-id="2770de51-42e3-49c4-b202-18332f8beb0b" object-ref="consoles/Connection" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="2770de51-42e3-49c4-b202-18332f8beb0b" />

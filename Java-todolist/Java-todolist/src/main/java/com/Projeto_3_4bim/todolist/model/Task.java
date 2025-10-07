@@ -1,38 +1,34 @@
 package com.Projeto_3_4bim.todolist.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 /**
- * A classe Task representa a entidade de tarefa no banco de dados.
- * Cada instância desta classe corresponde a uma linha na tabela 'tarefas'.
+ * Representa uma tarefa no banco de dados.
+ * Cada tarefa pertence a um único usuário.
  */
-@Data // Anotação do Lombok para gerar getters, setters, equals, hashCode e toString.
-@Entity // Anotação que marca esta classe como uma entidade JPA (mapeada para o banco).
-@Table(name = "tasks") // Especifica o nome da tabela no banco de dados.
+@Data
+@Entity
+@Table(name = "tasks")
 public class Task {
 
-    @Id // Marca o campo 'id' como a chave primária da tabela.
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Configura a geração automática do ID.
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false) // Garante que o nome da tarefa seja único e não nulo.
-    private String taskname;
+    @Column(nullable = false)
+    private String title;
 
-    @Column()
-    private String taskdescription;
+    private LocalDate dueDate; // Data de vencimento
 
-    @Column()
-    private String expirationdate; //Usando Java.time.LocalDateTime iremos comparar com a data de expiração no estilo ano-mês-diaThora:minuto:segundo
+    @Enumerated(EnumType.STRING) // Salva o nome do status (ex: "PENDING")
+    private TaskStatus status;
 
-    @Column()
-    private String status;
+    private String tags; // Por simplicidade, vamos usar uma String com tags separadas por vírgula
 
-    @Column()
-    private String tag;
+    @ManyToOne(fetch = FetchType.LAZY) // Muitas tarefas para um usuário. LAZY é uma otimização.
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

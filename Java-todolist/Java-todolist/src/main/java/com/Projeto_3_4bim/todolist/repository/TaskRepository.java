@@ -39,5 +39,11 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
     List<Task> findByUserAndStatus(User user, TaskStatus status);
 
+    /**
+     * Encontra todas as tarefas de um usuário que contenham uma tag específica.
+     * A consulta irá procurar pela string da tag dentro da coluna 'tags'.
+     */
+    List<Task> findByUserAndTagsContaining(User user, String tag);
+
 }
 

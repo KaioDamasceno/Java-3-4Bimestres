@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Controlador responsável por lidar com as requisições para a página principal
@@ -62,7 +63,7 @@ public class TaskController {
         return "redirect:/tasks";
     }
 
-    // --- MÉTODOS DE FILTRO ADICIONADOS ---
+    // --- MÉTODOS DE FILTRO ---
 
     @GetMapping("/today")
     public String showTasksDueToday(Principal principal, Model model) {
@@ -85,13 +86,24 @@ public class TaskController {
         return "tasks";
     }
 
+    // --- MÉTODO DE FILTRO POR TAG ADICIONADO ---
+
+    @GetMapping("/tag/{tag}")
+    public String showTasksByTag(@PathVariable String tag, Principal principal, Model model) {
+        List<Task> tasks = taskService.getTasksByTag(principal.getName(), tag);
+        prepareModelForView(principal, model, tasks, "Tag: #" + tag);
+        return "tasks";
+    }
+
     // --- MÉTODO AUXILIAR PRIVADO ---
 
     private void prepareModelForView(Principal principal, Model model, List<Task> tasks, String pageTitle) {
+        Set<String> userTags = taskService.getAllUserTags(principal.getName());
         model.addAttribute("tasks", tasks);
         model.addAttribute("username", principal.getName());
         model.addAttribute("newTask", new Task());
         model.addAttribute("pageTitle", pageTitle); // Título dinâmico para a página
+        model.addAttribute("userTags", userTags); // Lista de tags para a barra lateral
     }
 }
 

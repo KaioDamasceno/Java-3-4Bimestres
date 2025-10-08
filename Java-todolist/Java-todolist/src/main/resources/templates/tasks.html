@@ -48,7 +48,7 @@
 
         <!-- Coluna da Barra Lateral de Filtros -->
         <div class="col-md-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm mb-4">
                 <div class="card-header">
                     <h5 class="mb-0">Filtros</h5>
                 </div>
@@ -67,6 +67,19 @@
                     </a>
                 </div>
             </div>
+            <!-- Secção de Tags -->
+            <div class="card shadow-sm" th:if="${!userTags.isEmpty()}">
+                <div class="card-header">
+                    <h5 class="mb-0">Tags</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a th:each="tag : ${userTags}" th:href="@{/tasks/tag/{tag}(tag=${tag})}" class="list-group-item list-group-item-action"
+                       th:classappend="${pageTitle == 'Tag: #' + tag} ? 'active' : ''">
+                        <i class="bi bi-tag-fill me-2"></i>
+                        <span th:text="${tag}"></span>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <!-- Coluna Principal (Conteúdo das Tarefas) -->
@@ -76,12 +89,21 @@
                 <div class="card-body">
                     <h5 class="card-title">Adicionar Nova Tarefa</h5>
                     <form th:action="@{/tasks/add}" th:object="${newTask}" method="post">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="O que você precisa fazer?" th:field="*{title}" required>
-                            <input type="date" class="form-control" style="max-width: 180px;" th:field="*{dueDate}">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-plus-lg"></i> Adicionar
-                            </button>
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="O que você precisa fazer?" th:field="*{title}" required>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" placeholder="Tags (ex: trabalho, estudo)" th:field="*{tags}">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <input type="date" class="form-control" th:field="*{dueDate}">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -99,7 +121,11 @@
                     <li th:each="task : ${tasks}" class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
                             <span th:text="${task.title}" class="h6" th:classappend="${task.status.name() == 'COMPLETED'} ? 'completed' : ''">Título da Tarefa</span>
-                            <div class="text-muted small" th:if="${task.dueDate != null}">
+                            <!-- Exibir Tags -->
+                            <div class="mt-1" th:if="${task.tags != null and !task.tags.isEmpty()}">
+                                <span th:each="tag : ${task.tags.split(',')}" class="badge bg-secondary me-1" th:text="${tag.trim()}"></span>
+                            </div>
+                            <div class="text-muted small mt-1" th:if="${task.dueDate != null}">
                                 <i class="bi bi-calendar-event"></i>
                                 Vence em: <span th:text="${#temporals.format(task.dueDate, 'dd/MM/yyyy')}">dd/MM/yyyy</span>
                             </div>

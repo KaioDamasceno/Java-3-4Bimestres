@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Serviço para gerir a lógica de negócios relacionada a tarefas.
@@ -75,7 +79,7 @@ public class TaskService {
         taskRepository.delete(task);
     }
 
-    // --- MÉTODOS DE FILTRO ADICIONADOS ---
+    // --- MÉTODOS DE FILTRO ---
 
     public List<Task> getTasksDueToday(String username) {
         User user = getUser(username);
@@ -92,6 +96,23 @@ public class TaskService {
     public List<Task> getCompletedTasks(String username) {
         User user = getUser(username);
         return taskRepository.findByUserAndStatus(user, TaskStatus.COMPLETED);
+    }
+
+    // --- MÉTODOS DE TAGS ADICIONADOS ---
+
+    public List<Task> getTasksByTag(String username, String tag) {
+        User user = getUser(username);
+        return taskRepository.findByUserAndTagsContaining(user, tag);
+    }
+
+    public Set<String> getAllUserTags(String username) {
+        User user = getUser(username);
+        List<Task> tasks = taskRepository.findByUser(user);
+        return tasks.stream()
+                .filter(task -> StringUtils.hasText(task.getTags())) // Ignora tags vazias ou nulas
+                .flatMap(task -> Arrays.stream(task.getTags().split(","))) // Divide a string "tag1,tag2" em um stream de tags
+                .map(String::trim) // Remove espaços em branco (ex: " tag1 " -> "tag1")
+                .collect(Collectors.toSet()); // Coleta em um Set para garantir que as tags sejam únicas
     }
 
 

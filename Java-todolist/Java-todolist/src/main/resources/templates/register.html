@@ -3,53 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - Gerenciador de Tarefas</title>
-    <!-- Incluindo Bootstrap via CDN para estilização rápida -->
+    <title>Registro - Flux</title>
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Link para nosso CSS customizado -->
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Super CSS -->
+    <link rel="stylesheet" th:href="@{/css/landing.css}">
 </head>
+<body>
 
-<body class="bg-dark text-light">
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow p-4 bg-dark text-light border-light" style="width: 100%; max-width: 450px;">
-        <div class="card-body">
-            <h2 class="card-title text-center mb-4">Criar Conta</h2>
+<!-- Wrapper com fundo animado -->
+<section class="hero-section">
+    <!-- Elementos de fundo -->
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
 
-            <!-- Mensagem de erro de usuário duplicado -->
-            <div th:if="${error}" class="alert alert-danger" role="alert">
-                <p class="mb-0" th:text="${error}"></p>
+    <div class="container d-flex justify-content-center">
+        <div class="auth-card animate-up">
+            <div class="text-center mb-4">
+                <a th:href="@{/}" class="text-white text-decoration-none">
+                    <i class="bi bi-person-plus-fill fs-1 mb-2 d-block text-primary"></i>
+                    <h2 class="fw-bold">Criar Conta Flux</h2>
+                </a>
+                <p class="text-white-50">Comece a organizar sua vida hoje.</p>
             </div>
 
-            <!-- Mensagem de erro de senha fraca -->
-            <div th:if="${passwordError}" class="alert alert-danger" role="alert">
-                <p class="mb-0" th:text="${passwordError}"></p>
+            <!-- Mensagem de erro -->
+            <div th:if="${error}" class="alert alert-danger bg-danger bg-opacity-25 text-white border-danger border-opacity-25" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i><span th:text="${error}"></span>
             </div>
 
-            <!-- Formulário de Registro -->
+            <!-- Mensagem de senha fraca -->
+            <div th:if="${passwordError}" class="alert alert-warning bg-warning bg-opacity-25 text-white border-warning border-opacity-25" role="alert">
+                <i class="bi bi-shield-exclamation me-2"></i><span th:text="${passwordError}"></span>
+            </div>
+
+            <!-- Formulário -->
             <form th:action="@{/register}" th:object="${user}" method="post">
                 <div class="mb-3">
-                    <label for="username" class="form-label">Nome de Usuário:</label>
-                    <input type="text" id="username" class="form-control dark-input" th:field="*{username}" required autofocus>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Senha:</label>
-                    <input type="password" id="password" class="form-control dark-input" th:field="*{password}" required>
-                    <!-- Adicionando informações sobre os requisitos da senha -->
-                    <div id="passwordHelp" class="form-text text-light">
-                        A senha deve ter entre 8 e 20 caracteres, contendo pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial (!@#&...).
+                    <label for="username" class="form-label text-white-50">Nome de Usuário</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-secondary text-white-50"><i class="bi bi-person"></i></span>
+                        <input type="text" id="username" class="form-control" th:field="*{username}" placeholder="Escolha um usuário" required autofocus>
                     </div>
                 </div>
+                <div class="mb-2">
+                    <label for="password" class="form-label text-white-50">Senha</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-secondary text-white-50"><i class="bi bi-lock"></i></span>
+                        <input type="password" id="password" class="form-control" th:field="*{password}" placeholder="Crie uma senha forte" required>
+                    </div>
+                </div>
+                <!-- Texto de ajuda da senha -->
+                <div id="passwordHelp" class="form-text text-white-50 mb-4 small">
+                    <i class="bi bi-info-circle me-1"></i>Mínimo 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 símbolo.
+                </div>
+
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Registrar</button>
                 </div>
             </form>
 
-            <div class="text-center mt-3">
-                <p>Já tem uma conta? <a th:href="@{/login}" class="link-light"><b>Faça o login</b></a></p>
+            <div class="text-center mt-4">
+                <p class="text-white-50 mb-0">Já tem uma conta? <a th:href="@{/login}" class="link-light">Faça o login</a></p>
             </div>
         </div>
     </div>
-</div>
+</section>
+
 </body>
 </html>

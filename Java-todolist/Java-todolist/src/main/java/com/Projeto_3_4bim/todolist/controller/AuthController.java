@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 /**
  * Controlador responsável por lidar com as requisições de autenticação,
- * como login e registro de novos usuários.
+ * como login e registro de novos usuários, e pela página inicial.
  */
 @Controller
 public class AuthController {
@@ -28,6 +28,15 @@ public class AuthController {
             "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
 
     private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+
+    /**
+     * Exibe a página inicial de apresentação (Landing Page).
+     * @return o nome da view da landing page (index.html)
+     */
+    @GetMapping("/")
+    public String home() {
+        return "index";
+    }
 
     /**
      * Exibe a página de login.

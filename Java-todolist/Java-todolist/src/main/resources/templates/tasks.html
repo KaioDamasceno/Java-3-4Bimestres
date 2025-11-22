@@ -3,102 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minhas Tarefas</title>
+    <title>Minhas Tarefas - Flux</title>
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Ícones -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        .completed {
-            text-decoration: line-through;
-            color: #6c757d;
-        }
-        body {
-            background-color: #f8f9fa;
-        }
-    </style>
+    <!-- Super CSS -->
+    <link rel="stylesheet" th:href="@{/css/landing.css}">
 </head>
 <body>
 
-<!-- Barra de Navegação Superior -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/tasks}">
-            <i class="bi bi-check2-square"></i>
-            Gerenciador de Tarefas
-        </a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto d-flex align-items-center">
-                <li class="nav-item me-3">
-                    <span class="navbar-text">
-                        Olá, <strong th:text="${username}">Usuário</strong>
-                    </span>
-                </li>
-                <li class="nav-item">
-                    <form th:action="@{/logout}" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-outline-light">Sair</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!-- Fundo Animado Global -->
+<section class="hero-section">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
 
-<!-- Conteúdo Principal com Layout de 2 Colunas -->
-<div class="container mt-4">
-    <div class="row">
+    <!-- Navbar (Dentro da hero-section para ficar sobre o fundo) -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/tasks}">
+                <i class="bi bi-hdd-stack-fill me-2 text-primary"></i>Flux
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <!-- Coluna da Barra Lateral de Filtros -->
-        <div class="col-md-3">
-            <div class="card shadow-sm mb-4">
-                <div class="card-header">
-                    <h5 class="mb-0">Filtros</h5>
-                </div>
-                <div class="list-group list-group-flush">
-                    <a th:href="@{/tasks}" class="list-group-item list-group-item-action" th:classappend="${pageTitle == 'Todas as Tarefas'} ? 'active' : ''">
-                        <i class="bi bi-inbox-fill me-2"></i> Todas as Tarefas
-                    </a>
-                    <a th:href="@{/tasks/today}" class="list-group-item list-group-item-action" th:classappend="${pageTitle == 'Tarefas para Hoje'} ? 'active' : ''">
-                        <i class="bi bi-star-fill me-2"></i> Hoje
-                    </a>
-                    <a th:href="@{/tasks/week}" class="list-group-item list-group-item-action" th:classappend="${pageTitle == 'Próximos 7 Dias'} ? 'active' : ''">
-                        <i class="bi bi-calendar-week-fill me-2"></i> Próximos 7 dias
-                    </a>
-                    <a th:href="@{/tasks/completed}" class="list-group-item list-group-item-action" th:classappend="${pageTitle == 'Tarefas Concluídas'} ? 'active' : ''">
-                        <i class="bi bi-check-circle-fill me-2"></i> Concluídas
-                    </a>
-                </div>
-            </div>
-            <!-- Secção de Tags -->
-            <div class="card shadow-sm" th:if="${!userTags.isEmpty()}">
-                <div class="card-header">
-                    <h5 class="mb-0">Tags</h5>
-                </div>
-                <div class="list-group list-group-flush">
-                    <a th:each="tag : ${userTags}" th:href="@{/tasks/tag/{tag}(tag=${tag})}" class="list-group-item list-group-item-action"
-                       th:classappend="${pageTitle == 'Tag: #' + tag} ? 'active' : ''">
-                        <i class="bi bi-tag-fill me-2"></i>
-                        <span th:text="${tag}"></span>
-                    </a>
-                </div>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto d-flex align-items-center">
+                    <li class="nav-item me-3">
+                            <span class="navbar-text text-white-50">
+                                Olá, <strong class="text-white" th:text="${username}">Usuário</strong>
+                            </span>
+                    </li>
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-light rounded-pill px-3">
+                                <i class="bi bi-box-arrow-right me-1"></i> Sair
+                            </button>
+                        </form>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
 
-        <!-- Coluna Principal (Conteúdo das Tarefas) -->
-        <div class="col-md-9">
-            <!-- Formulário para Adicionar Nova Tarefa -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Adicionar Nova Tarefa</h5>
+    <!-- Conteúdo Principal (Com margem superior para não ficar sob a navbar) -->
+    <div class="container" style="margin-top: 80px; padding-bottom: 40px;">
+        <div class="row animate-up">
+
+            <!-- Coluna da Barra Lateral -->
+            <div class="col-md-3 mb-4">
+                <!-- Filtros -->
+                <div class="glass-card mb-4">
+                    <div class="glass-header">
+                        <i class="bi bi-funnel me-2"></i>Filtros
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a th:href="@{/tasks}" class="list-group-item list-group-item-action"
+                           th:classappend="${pageTitle == 'Todas as Tarefas'} ? 'active' : ''">
+                            <i class="bi bi-inbox me-2"></i> Todas
+                        </a>
+                        <a th:href="@{/tasks/today}" class="list-group-item list-group-item-action"
+                           th:classappend="${pageTitle == 'Tarefas para Hoje'} ? 'active' : ''">
+                            <i class="bi bi-sun me-2"></i> Hoje
+                        </a>
+                        <a th:href="@{/tasks/week}" class="list-group-item list-group-item-action"
+                           th:classappend="${pageTitle == 'Próximos 7 Dias'} ? 'active' : ''">
+                            <i class="bi bi-calendar-week me-2"></i> Próximos 7 dias
+                        </a>
+                        <a th:href="@{/tasks/completed}" class="list-group-item list-group-item-action"
+                           th:classappend="${pageTitle == 'Tarefas Concluídas'} ? 'active' : ''">
+                            <i class="bi bi-check2-circle me-2"></i> Concluídas
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="glass-card" th:if="${!userTags.isEmpty()}">
+                    <div class="glass-header">
+                        <i class="bi bi-tags me-2"></i>Tags
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a th:each="tag : ${userTags}" th:href="@{/tasks/tag/{tag}(tag=${tag})}"
+                           class="list-group-item list-group-item-action d-flex align-items-center"
+                           th:classappend="${pageTitle == 'Tag: #' + tag} ? 'active' : ''">
+                            <i class="bi bi-hash me-2 opacity-50"></i>
+                            <span th:text="${tag}"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Principal -->
+            <div class="col-md-9">
+
+                <!-- Título da Página -->
+                <h4 class="text-white mb-4 fw-bold">
+                    <span th:text="${pageTitle}">Minhas Tarefas</span>
+                </h4>
+
+                <!-- Formulário para Adicionar Nova Tarefa -->
+                <div class="glass-card mb-4 p-3">
                     <form th:action="@{/tasks/add}" th:object="${newTask}" method="post">
-                        <div class="row g-2">
+                        <div class="row g-2 align-items-center">
                             <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="O que você precisa fazer?" th:field="*{title}" required>
+                                <input type="text" class="form-control border-0" placeholder="✍️ Adicionar nova tarefa..." th:field="*{title}" required>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="Tags (ex: trabalho, estudo)" th:field="*{tags}">
+                                <input type="text" class="form-control border-0" placeholder="# tags" th:field="*{tags}">
                             </div>
                             <div class="col-md-3">
                                 <div class="input-group">
-                                    <input type="date" class="form-control" th:field="*{dueDate}">
+                                    <input type="date" class="form-control border-0" th:field="*{dueDate}">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="bi bi-plus-lg"></i>
                                     </button>
@@ -107,48 +123,65 @@
                         </div>
                     </form>
                 </div>
-            </div>
 
-            <!-- Lista de Tarefas -->
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <h5 class="mb-0" th:text="${pageTitle}">Sua Lista de Tarefas</h5>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li th:if="${tasks.isEmpty()}" class="list-group-item">
-                        Nenhuma tarefa encontrada para este filtro.
-                    </li>
-                    <li th:each="task : ${tasks}" class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <span th:text="${task.title}" class="h6" th:classappend="${task.status.name() == 'COMPLETED'} ? 'completed' : ''">Título da Tarefa</span>
-                            <!-- Exibir Tags -->
-                            <div class="mt-1" th:if="${task.tags != null and !task.tags.isEmpty()}">
-                                <span th:each="tag : ${task.tags.split(',')}" class="badge bg-secondary me-1" th:text="${tag.trim()}"></span>
-                            </div>
-                            <div class="text-muted small mt-1" th:if="${task.dueDate != null}">
-                                <i class="bi bi-calendar-event"></i>
-                                Vence em: <span th:text="${#temporals.format(task.dueDate, 'dd/MM/yyyy')}">dd/MM/yyyy</span>
-                            </div>
+                <!-- Lista de Tarefas -->
+                <div class="glass-card">
+                    <div class="list-group list-group-flush">
+                        <!-- Estado Vazio -->
+                        <div th:if="${tasks.isEmpty()}" class="list-group-item text-center py-5 text-muted">
+                            <i class="bi bi-clipboard-x display-4 mb-3 d-block opacity-50"></i>
+                            <p class="mb-0">Nenhuma tarefa encontrada aqui.</p>
                         </div>
-                        <div class="d-flex">
-                            <form th:action="@{/tasks/{id}/toggle(id=${task.id})}" method="post" class="me-2">
-                                <button type="submit" class="btn btn-sm" th:classappend="${task.status.name() == 'COMPLETED'} ? 'btn-outline-warning' : 'btn-outline-success'">
-                                    <i class="bi" th:classappend="${task.status.name() == 'COMPLETED'} ? 'bi-arrow-counterclockwise' : 'bi-check-lg'"></i>
-                                </button>
-                            </form>
+
+                        <!-- Loop de Tarefas -->
+                        <div th:each="task : ${tasks}" class="list-group-item d-flex justify-content-between align-items-center p-3 task-item">
+                            <div class="d-flex align-items-start">
+                                <!-- Botão Check (Formulário Toggle) -->
+                                <form th:action="@{/tasks/{id}/toggle(id=${task.id})}" method="post" class="me-3 mt-1">
+                                    <button type="submit" class="btn p-0 border-0 bg-transparent" title="Concluir/Reabrir">
+                                        <i class="bi fs-4"
+                                           th:classappend="${task.status.name() == 'COMPLETED'} ? 'bi-check-circle-fill text-success' : 'bi-circle text-secondary'"></i>
+                                    </button>
+                                </form>
+
+                                <div>
+                                    <!-- Título -->
+                                    <span th:text="${task.title}" class="h6 mb-1 d-block"
+                                          th:classappend="${task.status.name() == 'COMPLETED'} ? 'completed text-muted' : 'text-white'">
+                                            Título da Tarefa
+                                        </span>
+
+                                    <div class="d-flex align-items-center gap-2 mt-1">
+                                        <!-- Data -->
+                                        <span class="badge bg-transparent border border-secondary text-muted fw-normal" th:if="${task.dueDate != null}">
+                                                <i class="bi bi-calendar3 me-1"></i>
+                                                <span th:text="${#temporals.format(task.dueDate, 'dd/MM')}"></span>
+                                            </span>
+
+                                        <!-- Tags -->
+                                        <span th:if="${task.tags != null and !task.tags.isEmpty()}"
+                                              th:each="tag : ${task.tags.split(',')}"
+                                              class="badge bg-secondary bg-opacity-25 text-info fw-normal border border-info border-opacity-25">
+                                                <span th:text="${'#' + tag.trim()}"></span>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ações (Delete) -->
                             <form th:action="@{/tasks/{id}/delete(id=${task.id})}" method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <button type="submit" class="btn btn-sm btn-link text-danger opacity-50 hover-opacity-100 text-decoration-none p-2">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </form>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

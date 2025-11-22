@@ -1,0 +1,195 @@
+/* Fonte moderna */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0f172a;
+    overflow-x: hidden;
+    color: #e2e8f0; /* Texto claro padrão */
+}
+
+/* Fundo com gradiente animado */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    overflow-y: auto; /* Permite rolagem se o conteúdo for grande */
+    /* display: flex; -> REMOVIDO para não quebrar o layout do dashboard */
+}
+
+/* Wrapper para centralizar Login/Registro (usado apenas nessas páginas) */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Formas decorativas flutuantes */
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: 0;
+    pointer-events: none; /* Garante que não bloqueie cliques */
+}
+
+.shape-1 {
+    top: -10%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: #7c3aed;
+    animation: float 10s infinite alternate;
+}
+
+.shape-2 {
+    bottom: -10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: #2563eb;
+    animation: float 12s infinite alternate-reverse;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, 30px); }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Estilos de Cartões (Glassmorphism) --- */
+
+/* Cartão Específico para Login/Registro (Centralizado) */
+.auth-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 450px;
+}
+
+/* Cartão Genérico para o Dashboard (Flexível) */
+.glass-card {
+    background: rgba(15, 23, 42, 0.6); /* Um pouco mais escuro para contraste */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Para bordas arredondadas */
+}
+
+.glass-header {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-weight: 600;
+    color: #fff;
+}
+
+.glass-body {
+    padding: 1.5rem;
+}
+
+/* --- Componentes Adaptados para Dark Mode --- */
+
+/* Inputs */
+.form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    border-color: #7c3aed !important;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2) !important;
+}
+
+.form-control::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+/* List Groups (Menu Lateral e Lista de Tarefas) */
+.list-group-item {
+    background: transparent !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    color: #cbd5e1 !important;
+    transition: all 0.2s;
+}
+
+.list-group-item-action:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #fff !important;
+}
+
+.list-group-item.active {
+    background: linear-gradient(90deg, #7c3aed, #2563eb) !important;
+    border-color: transparent !important;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+}
+
+/* Links e Texto */
+.link-light { color: #a78bfa !important; text-decoration: none; }
+.link-light:hover { color: #fff !important; text-decoration: underline; }
+.text-muted { color: #94a3b8 !important; }
+
+/* Botões */
+.btn-primary {
+    background: linear-gradient(90deg, #7c3aed, #2563eb);
+    border: none;
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+    background: linear-gradient(90deg, #6d28d9, #1d4ed8);
+}
+
+.btn-outline-light { border-color: rgba(255,255,255,0.2); color: #e2e8f0; }
+.btn-outline-light:hover { background: rgba(255,255,255,0.1); border-color: white; color: white; }
+
+/* Badges (Tags) */
+.badge {
+    font-weight: 500;
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+}
+.bg-secondary { background-color: rgba(255, 255, 255, 0.15) !important; color: #e2e8f0; }
+
+/* Navbar */
+.navbar {
+    background: rgba(15, 23, 42, 0.8) !important; /* Fundo semi-transparente */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Animações */
+.animate-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s forwards ease-out;
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Utilitários Específicos */
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}

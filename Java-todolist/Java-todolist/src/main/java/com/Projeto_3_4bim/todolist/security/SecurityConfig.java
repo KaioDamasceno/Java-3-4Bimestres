@@ -39,8 +39,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // Permite o acesso público às seguintes rotas:
-                        .requestMatchers("/", "/register", "/login", "/css/**", "/js/**").permitAll()
+                        // Permite o acesso público à página inicial (/), registro, login e recursos estáticos
+                        .requestMatchers("/", "/register", "/login", "/css/**", "/js/**", "/images/**").permitAll()
                         // Qualquer outra requisição exige que o usuário esteja autenticado.
                         .anyRequest().authenticated()
                 )
@@ -48,7 +48,6 @@ public class SecurityConfig {
                         // Define a URL da página de login personalizada.
                         .loginPage("/login")
                         // A URL para onde o formulário de login envia os dados (POST).
-                        // O Spring Security cuida desse endpoint automaticamente.
                         .loginProcessingUrl("/login")
                         // URL para redirecionar após um login bem-sucedido.
                         .defaultSuccessUrl("/tasks", true)
@@ -56,6 +55,8 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
                         // Permite que todos acessem a funcionalidade de logout.
                         .permitAll()
                 );

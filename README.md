@@ -152,7 +152,6 @@ flowchart TD
 
 ------------------------------------------------------------------------
 
-## Licença
+## Link do vídeo de apresentação:
 
-Projeto desenvolvido exclusivamente para fins acadêmicos na disciplina
-de LP2 do IFSP.
+https://youtu.be/IPRgZmV1ZHU

@@ -1,16 +1,144 @@
-# Java-3-4Bimestres
+# Flux --- Gerenciador de Tarefas
 
-## Sobre
+Projeto desenvolvido para os 3º e 4º bimestres da disciplina de
+Laboratório de Programação 2 (LP2) no IFSP.\
+O sistema consiste em um gerenciador de tarefas completo, com
+autenticação, filtros, tags e interface moderna construída com Thymeleaf
+e Bootstrap.
 
-Este é um projeto de **To-Do List** desenvolvido para ajudar usuários a organizar tarefas do dia a dia de forma simples e eficiente.
+------------------------------------------------------------------------
 
-O trabalho foi feito como parte da disciplina **Laboratório de Programação 2 (LBP2)** no **IFSP**, com foco em:
+## Sobre o Projeto
 
-* Back-end em **Java + Spring Boot**
-* Front-end baseado em **SPA**
-* Integração completa e funcional entre as camadas
+Este projeto implementa uma aplicação web do tipo To-Do List com foco
+em:
 
----
+-   Organização e gerenciamento de tarefas
+-   Autenticação de usuários
+-   Persistência de dados em SQLite
+-   Boas práticas com Spring Boot, MVC, Security e JPA
+
+------------------------------------------------------------------------
+
+## Funcionalidades
+
+-   Registro e login de usuários com senhas criptografadas (BCrypt)
+-   Criar, listar, marcar como concluída e excluir tarefas
+-   Sistema de tags para organização
+-   Filtros de visualização:
+    -   Tarefas do dia
+    -   Próximos 7 dias
+    -   Tarefas concluídas
+    -   Filtrar por tag
+-   Interface em dark mode, com design baseado em glassmorphism
+-   Banco SQLite criado automaticamente na primeira execução
+-   Templates HTML usando Thymeleaf
+
+------------------------------------------------------------------------
+
+## Tecnologias Utilizadas
+
+### Back-end
+
+-   Java 17\
+-   Spring Boot 3.2\
+-   Spring MVC\
+-   Spring Security\
+-   Spring Data JPA\
+-   Hibernate\
+-   SQLite
+
+### Front-end
+
+-   Thymeleaf\
+-   HTML5\
+-   Bootstrap 5\
+-   CSS personalizado
+
+### Ferramentas
+
+-   Maven\
+-   Git e GitHub\
+-   IDE (VS Code, IntelliJ ou Eclipse)
+
+------------------------------------------------------------------------
+
+## Como Executar
+
+### Pré-requisitos
+
+-   Java JDK 17\
+-   Maven\
+-   Git
+
+### Passo a passo
+
+``` bash
+git clone https://github.com/KaioDamasceno/Java-3-4Bimestres.git
+cd Java-3-4Bimestres
+```
+
+1.  Abra o projeto na sua IDE.\
+2.  Aguarde o Maven baixar as dependências.\
+3.  Execute a classe principal:
+
+```{=html}
+<!-- -->
+```
+    src/main/java/com/Projeto_3_4bim/todolist/JavaTodolistApplication.java
+
+4.  Acesse no navegador:
+
+```{=html}
+<!-- -->
+```
+    http://localhost:8080
+
+------------------------------------------------------------------------
+
+## Banco de Dados
+
+-   Banco: SQLite\
+-   Arquivo gerado automaticamente: `todolist.db`\
+-   Ferramenta recomendada para visualização:\
+    https://sqlitebrowser.org/
+
+------------------------------------------------------------------------
+
+## Estrutura do Projeto
+
+    src/
+     ├─ main/
+     │   ├─ java/com/Projeto_3_4bim/todolist/
+     │   │   ├─ controller/       # Controladores MVC
+     │   │   ├─ service/          # Regras de negócio
+     │   │   ├─ repository/       # JPA Repositories
+     │   │   ├─ model/            # Entidades/Tabelas
+     │   │   └─ security/         # Configuração do Spring Security
+     │   └─ resources/
+     │       ├─ templates/        # HTML (Thymeleaf)
+     │       ├─ static/css        # Estilos
+     │       └─ application.properties
+     └─ test/
+
+------------------------------------------------------------------------
+
+## Fluxo da Aplicação
+
+``` mermaid
+flowchart TD
+    A[Usuário acessa] --> B[Login ou Registro]
+    B -->|Sucesso| C[Dashboard de Tarefas]
+    C --> D[Adicionar Tarefa]
+    C --> E[Filtrar por Data]
+    C --> F[Filtrar por Tag]
+    D --> G[Salvar no Banco]
+    E --> G
+    F --> G
+    G --> C
+```
+
+------------------------------------------------------------------------
 
 ## Equipe
 
@@ -22,84 +150,9 @@ O trabalho foi feito como parte da disciplina **Laboratório de Programação 2 
 | Kaio Damasceno de Oliveira     | SP3124517  |
 | Matheus Barbosa Silva          | SP311659X  |
 
----
+------------------------------------------------------------------------
 
-## Como Executar o Projeto
+## Licença
 
-### Pré-requisitos
-
-* **Java JDK 17**
-* **Maven**
-* **Git**
-* Uma IDE como IntelliJ, VS Code (com extensões Java) ou Eclipse
-
-### Passos de Instalação
-
-```bash
-# Clone o repositório
-git clone https://github.com/KaioDamasceno/Java-3-4Bimestres.git
-cd Java-3-4Bimestres
-```
-
-1. Abra o projeto na sua IDE.
-
-   * O `pom.xml` deve ser reconhecido automaticamente, baixando as dependências do Maven.
-   * Caso isso não aconteça, use a opção **Reload Maven Project**.
-
-2. Configure o **JDK 17** no projeto.
-
-   * Caminho: `File > Project Structure... > Project SDK`.
-
-3. Execute a aplicação:
-
-   * Localize a classe principal:
-
-     ```
-     src/main/java/com/Projeto_3_4bim/todolist/JavaTodolistApplication.java
-     ```
-   * Clique com o botão direito e selecione **Run**.
-
-4. Acesse no navegador:
-
-   ```
-   http://localhost:8080
-   ```
-
----
-
-## Banco de Dados
-
-* Banco utilizado: **SQLite**
-* O arquivo `todolist.db` é criado automaticamente na primeira execução.
-* Para visualizar os dados, pode-se usar o [DB Browser for SQLite](https://sqlitebrowser.org/).
-
----
-
-## Tecnologias Utilizadas (3º Bimestre)
-
-* **Back-end**: Java 17, Spring Boot, Spring Security, Spring Data JPA/Hibernate
-* **Front-end**: Thymeleaf, HTML5, CSS3 (Bootstrap 5)
-* **Banco de Dados**: SQLite
-* **Ferramentas**: Git, GitHub, Maven
-
----
-
-## Fluxo esperado Projeto
-
-```mermaid
-flowchart TD
-    A[User acessa aplicação] --> B[Login ou Cadastro]
-    B -->|Sucesso| C[Autenticação e Sessão Ativa]
-    B -->|Falha| D[Mensagem de erro]
-
-    C --> E[Gerenciamento de Tarefas]
-    E --> F[Adicionar Tarefa]
-    E --> G[Editar Tarefa]
-    E --> H[Excluir Tarefa]
-
-    F --> I[Salvar no Banco de Dados]
-    G --> I
-    H --> I
-
-    I --> J[Atualizar Interface]
-```
+Projeto desenvolvido exclusivamente para fins acadêmicos na disciplina
+de LP2 do IFSP.
